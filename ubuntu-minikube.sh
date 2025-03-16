@@ -20,7 +20,7 @@ sudo chmod +x /usr/local/bin/minikube
 #STEP-9: Verify Minikube installation:
 sudo minikube version
 
-install kubectl
+#install kubectl
 #STEP-10: Download kubectl binary:
 sudo curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
 #STEP-11: Download kubectl checksum file
@@ -29,6 +29,8 @@ sudo curl -LO "https://dl.k8s.io/$(curl -L -s https://dl.k8s.io/release/stable.t
 sudo echo "$(cat kubectl.sha256) kubectl" | sha256sum --check
 #STEP-13: Install kubectl:
 sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
-#STEP-14: Start Minikube with Docker as the driver:
+#STEP-14: Check the client version of kubectl in YAML format:
+sudo kubectl version --client 
+#STEP-15: Start Minikube with Docker as the driver:
 sudo minikube start --driver=docker --force
 
