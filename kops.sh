@@ -21,13 +21,23 @@ chmod +x kops-linux-amd64 kubectl
 mv kubectl /usr/local/bin/kubectl
 mv kops-linux-amd64 /usr/local/bin/kops
 
+# Step 7.1: Verify Installation
+kubectl version --client
+kops version
+
 #Step 8: Create an S3 Bucket for Kubernetes Cluster State
 aws s3api create-bucket --bucket kopss3bucket123.k8s.local --region us-east-1
+#aws s3api create-bucket --bucket kopss3bucket123.k8s.local --region us-east-1 --create-bucket-configuration LocationConstraint=us-east-1
+
 #Step 9: Enable Versioning on the S3 Bucket
 aws s3api put-bucket-versioning --bucket kopss3bucket123.k8s.local --region us-east-1 --versioning-configuration Status=Enabled
+#aws s3api put-bucket-versioning --bucket kopss3bucket123.k8s.local --versioning-configuration Status=Enabled
+
 #Step 10: Set the KOPS_STATE_STORE Variable
 export KOPS_STATE_STORE=s3://kopss3bucket123.k8s.local
 
 #Step 11: Create a Kubernetes Cluster Using kops
 kops create cluster --name yaswanth.k8s.local --zones us-east-1 --master-count=1 --master-size t2.medium --node-count=2 --node-size t2.micro
+#kops create cluster --name yaswanth.k8s.local --zones us-east-1a --cloud=aws --master-count=1 --master-size t2.medium --node-count=2 --node-size t2.micro
+
 kops update cluster --name yaswanth.k8s.local --yes --admin
