@@ -29,5 +29,5 @@ aws s3api put-bucket-versioning --bucket kopss3bucket123.k8s.local --region eu-w
 export KOPS_STATE_STORE=s3://kopss3bucket123.k8s.local
 
 #Step 11: Create a Kubernetes Cluster Using kops
-kops create cluster --name rahams.k8s.local --zones us-east-1a --master-count=1 --master-size t2.medium --node-count=2 --node-size t2.micro
-kops update cluster --name rahams.k8s.local --yes --admin
+kops create cluster --name yaswanth.k8s.local --zones eu-west-3 --master-count=1 --master-size t2.medium --node-count=2 --node-size t2.micro
+kops update cluster --name yaswanth.k8s.local --yes --admin
