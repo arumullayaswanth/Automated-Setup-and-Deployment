@@ -41,3 +41,5 @@ kops create cluster --name yaswanth.k8s.local --zones us-east-1a --master-count=
 #kops create cluster --name yaswanth.k8s.local --zones us-east-1a --cloud=aws --master-count=1 --master-size t2.medium --node-count=2 --node-size t2.micro
 
 kops update cluster --name yaswanth.k8s.local --yes --admin
+
+#kops validate cluster --wait 10m
