@@ -33,7 +33,7 @@ aws s3api create-bucket --bucket kopss3bucket123.k8s.local --region us-east-1
 aws s3api put-bucket-versioning --bucket kopss3bucket123.k8s.local --region us-east-1 --versioning-configuration Status=Enabled
 #aws s3api put-bucket-versioning --bucket kopss3bucket123.k8s.local --versioning-configuration Status=Enabled
 
-#Step 10: Set the KOPS_STATE_STORE Variable
+#Step 10: Set the KOPS_STATE_STORE Variable( (Manual Step)
 export KOPS_STATE_STORE=s3://kopss3bucket123.k8s.local
 
 #Step 11: Create a Kubernetes Cluster Using kops
