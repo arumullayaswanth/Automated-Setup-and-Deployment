@@ -4,6 +4,7 @@ wget https://github.com/prometheus/prometheus/releases/download/v2.43.0/promethe
 tar -xf prometheus-2.43.0.linux-amd64.tar.gz
 sudo mv prometheus-2.43.0.linux-amd64/prometheus prometheus-2.43.0.linux-amd64/promtool /usr/local/bin
 
+#step-2 Create Directories for Configuration & Data
 Now, We need to Create directories for configuration files and other prometheus data.
 sudo mkdir /etc/prometheus /var/lib/prometheus
 sudo mv prometheus-2.43.0.linux-amd64/console_libraries /etc/prometheus
@@ -14,6 +15,7 @@ sudo rm -rvf prometheus-2.43.0.linux-amd64*
 #3.101.56.72  worker-1
 #54.193.223.22 worker-2
 
+#step-3 Configure Prometheus Monitoring Targets
 sudo cat <<EOF | sudo tee /etc/prometheus/prometheus.yml
 global:
   scrape_interval: 10s
@@ -29,10 +31,11 @@ scrape_configs:
       - targets: ['localhost:9100','worker-1:9100','worker-2:9100']
 EOF
 
-
+#step-4 Create a Prometheus System User
 sudo useradd -rs /bin/false prometheus
 sudo chown -R prometheus: /etc/prometheus /var/lib/prometheus
 
+#step-5 Create Prometheus Systemd Service
  sudo ls -l /etc/prometheus/
 sudo cat <<EOF | tee /etc/systemd/system/prometheus.service
 [Unit]
@@ -53,10 +56,12 @@ ExecStart=/usr/local/bin/prometheus \
 WantedBy=multi-user.target
 EOF
 
+#step-6  Start Prometheus Service
 sudo ls -l /etc/systemd/system/prometheus.service
 sudo systemctl daemon-reload && sudo systemctl enable prometheus
 sudo systemctl start prometheus && sudo systemctl status prometheus --no-pager
 
+#step-7 Install Grafana
 #GRAFANA
 wget -q -O gpg.key https://rpm.grafana.com/gpg.key
 sudo rpm --import gpg.key
@@ -73,10 +78,13 @@ sslcacert=/etc/pki/tls/certs/ca-bundle.crt
 EOF
 
 exclude=*beta*
+
+#step-8 Install and Start Grafana
 yum install grafana -y
 systemctl start grafana-server.service
 systemctl status grafana-server.service
 
+#step-8 Install Node Exporter
 #NODEEXPORTER
 wget https://github.com/prometheus/node_exporter/releases/download/v1.5.0/node_exporter-1.5.0.linux-amd64.tar.gz
 tar -xf node_exporter-1.5.0.linux-amd64.tar.gz
@@ -84,6 +92,7 @@ sudo mv node_exporter-1.5.0.linux-amd64/node_exporter  /usr/local/bin
 rm -rv node_exporter-1.5.0.linux-amd64*
 sudo useradd -rs /bin/false node_exporter
 
+#Step-10 Create Node Exporter Service
 sudo cat <<EOF | sudo tee /etc/systemd/system/node_exporter.service
 [Unit]
 Description=Node Exporter
