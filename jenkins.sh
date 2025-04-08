@@ -10,6 +10,8 @@ sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
 sudo yum install java-17-amazon-corretto -y
 yum install jenkins -y
 update-alternatives --config java
+# *+ 2           /usr/lib/jvm/java-17-amazon-corretto.x86_64/bin/java(select this)
+
 
 #STEP-4: RESTARTING JENKINS (when we download service it will on stopped state)
 systemctl start jenkins.service
