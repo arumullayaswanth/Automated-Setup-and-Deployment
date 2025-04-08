@@ -5,4 +5,6 @@ yum install git java-1.8.0-openjdk maven -y
 #amazon-linux-extras install java-openjdk11 -y
 sudo yum install java-17-amazon-corretto -y
 #update-alternatives --config java
+# *+ 2           /usr/lib/jvm/java-17-amazon-corretto.x86_64/bin/java(select this)
+
 #java -version
